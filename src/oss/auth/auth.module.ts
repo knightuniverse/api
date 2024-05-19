@@ -1,4 +1,4 @@
-import { OperatorsModule } from '@/operators/operators.module';
+import { OperatorsModule } from '@/oss/operators/operators.module';
 import { Module } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtModule } from '@nestjs/jwt';

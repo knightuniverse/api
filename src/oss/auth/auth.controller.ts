@@ -6,7 +6,7 @@ import { Public } from './auth.guard';
 import { AuthService } from './auth.service';
 import { SignInCredential } from './dto/sign-in-credential.dto';
 
-@Controller('auth')
+@Controller('oss/auth')
 export class AuthController {
   constructor(
     private readonly signInService: AuthService,

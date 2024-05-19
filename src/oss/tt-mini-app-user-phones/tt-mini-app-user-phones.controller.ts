@@ -12,7 +12,7 @@ import { CreateTtMiniAppUserPhoneDto } from './dto/create-tt-mini-app-user-phone
 import { UpdateTtMiniAppUserPhoneDto } from './dto/update-tt-mini-app-user-phone.dto';
 import { TtMiniAppUserPhonesService } from './tt-mini-app-user-phones.service';
 
-@Controller('tt-mini-app-user-phones')
+@Controller('oss/tt-mini-app-user-phones')
 export class TtMiniAppUserPhonesController {
   constructor(
     private readonly ttMiniAppUserPhonesService: TtMiniAppUserPhonesService,

@@ -1,11 +1,11 @@
-name: legal-consultation
+name: api
 
 services:
-  app:
+  api:
     image: 'mcr.microsoft.com/devcontainers/javascript-node:20-bullseye'
     command: tail -f /dev/null
     networks:
-      - legal-consultation
+      - api
     ports:
       - '3000:3000'
     volumes:
@@ -18,7 +18,7 @@ services:
       MYSQL_USER: johndoe
       MYSQL_PASSWORD: 2Dp1pFT9ehMaoefpPLq9VuXqJg7Fc8g8
     networks:
-      - legal-consultation
+      - api
     ports:
       - '3306:3306'
     restart: unless-stopped
@@ -27,7 +27,7 @@ services:
   redis:
     image: 'redis:alpine'
     networks:
-      - legal-consultation
+      - api
     ports:
       - '6379:6379'
     restart: unless-stopped
@@ -40,5 +40,5 @@ volumes:
 
 networks:
   # The presence of these objects is sufficient to define them
-  legal-consultation:
-    name: legal-consultation
+  api:
+    name: api

@@ -1,5 +1,5 @@
 import { QFYApiException } from '@/lib/qfy-api-exception';
-import { OperatorsService } from '@/operators/operators.service';
+import { OperatorsService } from '@/oss/operators/operators.service';
 import { Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 

@@ -18,6 +18,6 @@
 	"dockerComposeFile": "compose.yaml",
 	"forwardPorts": [],
 	"name": "api",
-	"service": "app",
+	"service": "api",
 	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}"
 }

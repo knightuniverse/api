@@ -23,17 +23,24 @@ export class AuthGuard implements CanActivate {
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
+    const request = context.switchToHttp().getRequest();
+    if (request.path.startsWith('/mp')) {
+      return true;
+    }
+
     const isPublic = this.reflector.getAllAndOverride<boolean>(IS_PUBLIC_KEY, [
       context.getHandler(),
       context.getClass(),
     ]);
-    // const permissions = this.reflector.get(Permissions, context.getHandler());
     if (isPublic) {
-      // 💡 See this condition
       return true;
     }
 
-    const request = context.switchToHttp().getRequest();
+    // const permissions = this.reflector.get(Permissions, context.getHandler());
+    // if (!permissions || permissions.length === 0) {
+    //   return true;
+    // }
+
     const token = this.extractTokenFromHeader(request);
     if (!token) {
       throw new UnauthorizedException();

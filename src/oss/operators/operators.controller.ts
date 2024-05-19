@@ -1,9 +1,17 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { OperatorsService } from './operators.service';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { CreateOperatorDto } from './dto/create-operator.dto';
 import { UpdateOperatorDto } from './dto/update-operator.dto';
+import { OperatorsService } from './operators.service';
 
-@Controller('operators')
+@Controller('oss/operators')
 export class OperatorsController {
   constructor(private readonly operatorsService: OperatorsService) {}
 
@@ -23,7 +31,10 @@ export class OperatorsController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateOperatorDto: UpdateOperatorDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateOperatorDto: UpdateOperatorDto,
+  ) {
     return this.operatorsService.update(+id, updateOperatorDto);
   }
 

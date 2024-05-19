@@ -12,7 +12,7 @@ import { CreateTtMiniAppDto } from './dto/create-tt-mini-app.dto';
 import { UpdateTtMiniAppDto } from './dto/update-tt-mini-app.dto';
 import { TtMiniAppsService } from './tt-mini-apps.service';
 
-@Controller('tt-mini-apps')
+@Controller('oss/tt-mini-apps')
 export class TtMiniAppsController {
   constructor(private readonly ttMiniAppsService: TtMiniAppsService) {}
 

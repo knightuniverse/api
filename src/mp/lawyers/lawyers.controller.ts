@@ -6,13 +6,12 @@ import {
   Param,
   Patch,
   Post,
-  Query,
 } from '@nestjs/common';
 import { CreateLawyerDto } from './dto/create-lawyer.dto';
 import { UpdateLawyerDto } from './dto/update-lawyer.dto';
 import { LawyersService } from './lawyers.service';
 
-@Controller('lawyers')
+@Controller('mp/lawyers')
 export class LawyersController {
   constructor(private readonly lawyersService: LawyersService) {}
 
@@ -22,16 +21,8 @@ export class LawyersController {
   }
 
   @Get()
-  async findAll(
-    @Query('page') page: number,
-    @Query('pageSize') pageSize: number,
-  ) {
-    const data = await this.lawyersService.findAll(page, pageSize);
-    return {
-      code: 200,
-      data: data,
-      desc: '',
-    };
+  findAll() {
+    return this.lawyersService.findAll();
   }
 
   @Get(':id')

@@ -12,7 +12,7 @@ import { CreateTtMiniAppUserDto } from './dto/create-tt-mini-app-user.dto';
 import { UpdateTtMiniAppUserDto } from './dto/update-tt-mini-app-user.dto';
 import { TtMiniAppUsersService } from './tt-mini-app-users.service';
 
-@Controller('tt-mini-app-users')
+@Controller('oss/tt-mini-app-users')
 export class TtMiniAppUsersController {
   constructor(private readonly ttMiniAppUsersService: TtMiniAppUsersService) {}
 
@@ -22,7 +22,10 @@ export class TtMiniAppUsersController {
   }
 
   @Get()
-  async findAll(@Query('page') page: number, @Query('pageSize') pageSize: number) {
+  async findAll(
+    @Query('page') page: number,
+    @Query('pageSize') pageSize: number,
+  ) {
     const data = await this.ttMiniAppUsersService.findAll(page, pageSize);
     return {
       code: 200,

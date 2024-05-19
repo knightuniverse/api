@@ -1,11 +1,21 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { DocumentDownloadsService } from './document-downloads.service';
 import { CreateDocumentDownloadDto } from './dto/create-document-download.dto';
 import { UpdateDocumentDownloadDto } from './dto/update-document-download.dto';
 
-@Controller('document-downloads')
+@Controller('oss/document-downloads')
 export class DocumentDownloadsController {
-  constructor(private readonly documentDownloadsService: DocumentDownloadsService) {}
+  constructor(
+    private readonly documentDownloadsService: DocumentDownloadsService,
+  ) {}
 
   @Post()
   create(@Body() createDocumentDownloadDto: CreateDocumentDownloadDto) {
@@ -23,7 +33,10 @@ export class DocumentDownloadsController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateDocumentDownloadDto: UpdateDocumentDownloadDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateDocumentDownloadDto: UpdateDocumentDownloadDto,
+  ) {
     return this.documentDownloadsService.update(+id, updateDocumentDownloadDto);
   }
 
