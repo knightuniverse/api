@@ -1,0 +1,122 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// 平台运维人员
+model Operator {
+  countryCode     String         @default("86")
+  createdAt       DateTime       @default(now())
+  id              Int            @id @default(autoincrement())
+  lastSignInAt    DateTime       @default(now())
+  logs            OperationLog[]
+  name            String
+  password        String
+  phoneNumber     String         @unique // 用户绑定的手机号（国外手机号会有区号）
+  purePhoneNumber String         @unique // 没有区号的手机号
+  updatedAt       DateTime       @default(now())
+
+  @@map(name: "operators")
+}
+
+// 平台运维人员操作日志
+model OperationLog {
+  createdAt  DateTime @default(now())
+  id         Int      @id @default(autoincrement())
+  message    String
+  operator   Operator @relation(fields: [operatorId], references: [id])
+  operatorId Int
+  updatedAt  DateTime @default(now())
+
+  @@map(name: "operation_logs")
+}
+
+model TTMiniApp {
+  appId          String        @unique
+  createdAt      DateTime      @default(now())
+  id             Int           @id @default(autoincrement())
+  name           String
+  organization   Organization? @relation(fields: [organizationId], references: [id])
+  organizationId Int?
+  updatedAt      DateTime      @default(now())
+
+  @@map(name: "tt_mini_apps")
+}
+
+model TTMiniAppUser {
+  appId     String   @unique
+  createdAt DateTime @default(now())
+  id        Int      @id @default(autoincrement())
+  name      String
+  openId    String // openid 是用户在当前小程序的 ID
+  unionId   String // unionid 是用户在小程序平台的唯一标识符
+  updatedAt DateTime @default(now())
+
+  @@map(name: "tt_mini_app_users")
+}
+
+model TTMiniAppUserPhone {
+  countryCode      String // 用户绑定的手机号区号
+  createdAt        DateTime           @default(now())
+  id               Int                @id @default(autoincrement())
+  phoneNumber      String             @unique // 用户绑定的手机号（国外手机号会有区号）
+  purePhoneNumber  String             @unique // 没有区号的手机号
+  updatedAt        DateTime           @default(now())
+  DocumentDownload DocumentDownload[]
+
+  @@map(name: "tt_mini_app_user_phones")
+}
+
+model Organization {
+  createdAt DateTime    @default(now())
+  documents Document[]
+  id        Int         @id @default(autoincrement())
+  name      String
+  lawyers   Lawyer[]
+  miniApps  TTMiniApp[]
+  updatedAt DateTime    @default(now())
+
+  @@map(name: "organizations")
+}
+
+model Lawyer {
+  createdAt      DateTime      @default(now())
+  id             Int           @id @default(autoincrement())
+  name           String
+  organization   Organization? @relation(fields: [organizationId], references: [id])
+  organizationId Int?
+  seniority      Int           @default(0) // 工龄
+  updatedAt      DateTime      @default(now())
+
+  @@map(name: "lawyers")
+}
+
+model Document {
+  createdAt      DateTime           @default(now())
+  downloads      DocumentDownload[]
+  href           String // 文档的云存储地址
+  id             Int                @id @default(autoincrement())
+  organization   Organization?      @relation(fields: [organizationId], references: [id])
+  organizationId Int?
+  removedAt      DateTime
+  title          String
+  updatedAt      DateTime           @default(now())
+
+  @@map(name: "documents")
+}
+
+model DocumentDownload {
+  createdAt  DateTime            @default(now())
+  doc        Document            @relation(fields: [documentId], references: [id])
+  documentId Int
+  id         Int                 @id @default(autoincrement())
+  phone      TTMiniAppUserPhone? @relation(fields: [phoneId], references: [id])
+  phoneId    Int?
+  updatedAt  DateTime            @default(now())
+
+  @@map(name: "document_downloads")
+}

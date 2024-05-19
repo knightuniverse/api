@@ -1,0 +1,23 @@
+{
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"dbaeumer.vscode-eslint",
+				"ban.spellright",
+				"mhutchie.git-graph",
+				"eamodio.gitlens",
+				"esbenp.prettier-vscode",
+				"richie5um2.vscode-sort-json",
+				"bradlc.vscode-tailwindcss",
+				"ms-azuretools.vscode-docker",
+				"Prisma.prisma"
+			],
+			"settings": {}
+		}
+	},
+	"dockerComposeFile": "compose.yaml",
+	"forwardPorts": [],
+	"name": "api",
+	"service": "app",
+	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}"
+}
