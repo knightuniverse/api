@@ -73,6 +73,7 @@ model TTMiniAppUserPhone {
 
 model Organization {
   createdAt DateTime    @default(now())
+  desc      String
   documents Document[]
   id        Int         @id @default(autoincrement())
   name      String
@@ -84,6 +85,7 @@ model Organization {
 }
 
 model Lawyer {
+  bio            String
   createdAt      DateTime      @default(now())
   id             Int           @id @default(autoincrement())
   name           String

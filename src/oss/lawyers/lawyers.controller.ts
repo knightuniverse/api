@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
   Query,
@@ -23,8 +24,8 @@ export class LawyersController {
 
   @Get()
   async findAll(
-    @Query('page') page: number,
-    @Query('pageSize') pageSize: number,
+    @Query('page', ParseIntPipe) page: number,
+    @Query('pageSize', ParseIntPipe) pageSize: number,
   ) {
     const data = await this.lawyersService.findAll(page, pageSize);
     return {

@@ -47,6 +47,8 @@ const main = async () => {
     },
   ]);
 
+  await seed.organization((x) => x(100));
+
   console.log('Database seeded successfully!');
 
   process.exit();

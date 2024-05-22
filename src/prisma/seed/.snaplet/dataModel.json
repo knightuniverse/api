@@ -280,6 +280,20 @@
       "tableName": "lawyers",
       "fields": [
         {
+          "id": "legal-consultation-dev.lawyers.bio",
+          "name": "bio",
+          "columnName": "bio",
+          "type": "varchar",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
+        },
+        {
           "id": "legal-consultation-dev.lawyers.createdAt",
           "name": "createdAt",
           "columnName": "createdAt",
@@ -691,6 +705,20 @@
           "hasDefaultValue": true,
           "isId": false,
           "maxLength": null
+        },
+        {
+          "id": "legal-consultation-dev.organizations.desc",
+          "name": "desc",
+          "columnName": "desc",
+          "type": "varchar",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false,
+          "maxLength": 191
         },
         {
           "id": "legal-consultation-dev.organizations.id",
