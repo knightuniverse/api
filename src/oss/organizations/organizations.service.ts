@@ -19,8 +19,8 @@ export class OrganizationsService {
     return data;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} organization`;
+  async findOne(id: number) {
+    return await this.prisma.organization.findFirst({ where: { id } });
   }
 
   update(id: number, updateOrganizationDto: UpdateOrganizationDto) {

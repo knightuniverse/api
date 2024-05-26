@@ -1,3 +1,4 @@
+import { QFYApiResponse } from '@/lib/qfy-api-response';
 import {
   Body,
   Controller,
@@ -28,16 +29,21 @@ export class OrganizationsController {
     @Query('pageSize', ParseIntPipe) pageSize: number,
   ) {
     const data = await this.organizationsService.findAll(page, pageSize);
-    return {
+    return QFYApiResponse.create({
       code: 200,
       data: data,
       desc: '',
-    };
+    });
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.organizationsService.findOne(+id);
+  async findOne(@Param('id', ParseIntPipe) id: number) {
+    const data = await this.organizationsService.findOne(id);
+    return QFYApiResponse.create({
+      code: 200,
+      data: data,
+      desc: '',
+    });
   }
 
   @Patch(':id')
