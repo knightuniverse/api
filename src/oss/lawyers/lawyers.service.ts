@@ -7,8 +7,8 @@ import { UpdateLawyerDto } from './dto/update-lawyer.dto';
 export class LawyersService {
   constructor(@Inject(PRISMA_INJECTION_TOKEN) private prisma: PrismaService) {}
 
-  create(createLawyerDto: CreateLawyerDto) {
-    return 'This action adds a new lawyer';
+  async create(data: CreateLawyerDto) {
+    return await this.prisma.lawyer.create({ data });
   }
 
   async findAll(page = 1, pageSize = 20) {

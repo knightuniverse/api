@@ -19,8 +19,13 @@ export class LawyersController {
   constructor(private readonly lawyersService: LawyersService) {}
 
   @Post()
-  create(@Body() createLawyerDto: CreateLawyerDto) {
-    return this.lawyersService.create(createLawyerDto);
+  async create(@Body() dto: CreateLawyerDto) {
+    const data = await this.lawyersService.create(dto);
+    return QFYApiResponse.create({
+      code: 200,
+      data: data,
+      desc: '',
+    });
   }
 
   @Get()

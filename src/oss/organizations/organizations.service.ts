@@ -7,8 +7,8 @@ import { UpdateOrganizationDto } from './dto/update-organization.dto';
 export class OrganizationsService {
   constructor(@Inject(PRISMA_INJECTION_TOKEN) private prisma: PrismaService) {}
 
-  create(createOrganizationDto: CreateOrganizationDto) {
-    return 'This action adds a new organization';
+  async create(data: CreateOrganizationDto) {
+    return await this.prisma.organization.create({ data });
   }
 
   async findAll(page = 1, pageSize = 20) {
