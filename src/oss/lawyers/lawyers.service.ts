@@ -19,8 +19,8 @@ export class LawyersService {
     return data;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} lawyer`;
+  async findOne(id: number) {
+    return await this.prisma.lawyer.findFirst({ where: { id } });
   }
 
   update(id: number, updateLawyerDto: UpdateLawyerDto) {

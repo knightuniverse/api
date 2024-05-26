@@ -1,3 +1,4 @@
+import { QFYApiResponse } from '@/lib/qfy-api-response';
 import {
   Body,
   Controller,
@@ -28,16 +29,21 @@ export class LawyersController {
     @Query('pageSize', ParseIntPipe) pageSize: number,
   ) {
     const data = await this.lawyersService.findAll(page, pageSize);
-    return {
+    return QFYApiResponse.create({
       code: 200,
       data: data,
       desc: '',
-    };
+    });
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.lawyersService.findOne(+id);
+  async findOne(@Param('id', ParseIntPipe) id: number) {
+    const data = await this.lawyersService.findOne(id);
+    return QFYApiResponse.create({
+      code: 200,
+      data: data,
+      desc: '',
+    });
   }
 
   @Patch(':id')
