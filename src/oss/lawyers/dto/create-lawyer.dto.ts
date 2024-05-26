@@ -1,1 +1,4 @@
-export class CreateLawyerDto {}
+export class CreateLawyerDto {
+  bio: string;
+  name: string;
+}

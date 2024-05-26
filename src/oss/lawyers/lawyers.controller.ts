@@ -47,8 +47,16 @@ export class LawyersController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateLawyerDto: UpdateLawyerDto) {
-    return this.lawyersService.update(+id, updateLawyerDto);
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateLawyerDto: UpdateLawyerDto,
+  ) {
+    await this.lawyersService.update(id, updateLawyerDto);
+    return QFYApiResponse.create({
+      code: 200,
+      data: {},
+      desc: '',
+    });
   }
 
   @Delete(':id')

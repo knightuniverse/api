@@ -23,8 +23,14 @@ export class LawyersService {
     return await this.prisma.lawyer.findFirst({ where: { id } });
   }
 
-  update(id: number, updateLawyerDto: UpdateLawyerDto) {
-    return `This action updates a #${id} lawyer`;
+  async update(id: number, data: UpdateLawyerDto) {
+    return await this.prisma.lawyer.update({
+      data: {
+        ...data,
+        updatedAt: new Date(),
+      },
+      where: { id },
+    });
   }
 
   remove(id: number) {

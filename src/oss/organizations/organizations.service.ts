@@ -23,8 +23,14 @@ export class OrganizationsService {
     return await this.prisma.organization.findFirst({ where: { id } });
   }
 
-  update(id: number, updateOrganizationDto: UpdateOrganizationDto) {
-    return `This action updates a #${id} organization`;
+  async update(id: number, data: UpdateOrganizationDto) {
+    return await this.prisma.organization.update({
+      data: {
+        ...data,
+        updatedAt: new Date(),
+      },
+      where: { id },
+    });
   }
 
   remove(id: number) {

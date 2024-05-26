@@ -47,11 +47,16 @@ export class OrganizationsController {
   }
 
   @Patch(':id')
-  update(
-    @Param('id') id: string,
+  async update(
+    @Param('id', ParseIntPipe) id: number,
     @Body() updateOrganizationDto: UpdateOrganizationDto,
   ) {
-    return this.organizationsService.update(+id, updateOrganizationDto);
+    await this.organizationsService.update(id, updateOrganizationDto);
+    return QFYApiResponse.create({
+      code: 200,
+      data: {},
+      desc: '',
+    });
   }
 
   @Delete(':id')
