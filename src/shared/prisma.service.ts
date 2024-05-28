@@ -1,16 +1,3 @@
-// import { Injectable, OnModuleInit } from '@nestjs/common';
-// import { PrismaClient } from '@prisma/client';
-// import extension from 'prisma-paginate';
-
-// @Injectable()
-// export class PrismaService extends PrismaClient implements OnModuleInit {
-//   async onModuleInit() {
-//     this.$extends(extension);
-//     // Note: this is optional
-//     await this.$connect();
-//   }
-// }
-
 import { OnModuleInit } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
 import extension from 'prisma-paginate';

@@ -1,15 +1,27 @@
-import { Injectable } from '@nestjs/common';
+import { PRISMA_INJECTION_TOKEN, PrismaService } from '@/shared/prisma.service';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreateLawyerDto } from './dto/create-lawyer.dto';
 import { UpdateLawyerDto } from './dto/update-lawyer.dto';
 
 @Injectable()
 export class LawyersService {
+  constructor(@Inject(PRISMA_INJECTION_TOKEN) private prisma: PrismaService) {}
+
   create(createLawyerDto: CreateLawyerDto) {
     return 'This action adds a new lawyer';
   }
 
-  findAll() {
-    return `This action returns all lawyers`;
+  async findAll(
+    organizationId: number,
+    where: Partial<{
+      featured: 0 | 1;
+    }> = {},
+  ) {
+    return await this.prisma.lawyer.paginate({
+      limit: 2,
+      page: 1,
+      where: { organizationId, ...where },
+    });
   }
 
   findOne(id: number) {

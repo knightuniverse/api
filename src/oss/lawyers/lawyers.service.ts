@@ -11,10 +11,20 @@ export class LawyersService {
     return await this.prisma.lawyer.create({ data });
   }
 
-  async findAll(page = 1, pageSize = 20) {
+  async findAll(
+    args: Partial<{
+      page: number;
+      pageSize: number;
+    }>,
+  ) {
+    const { page = 1, pageSize = 20, ...where } = args;
     const data = await this.prisma.lawyer.paginate({
       limit: pageSize,
       page,
+      where,
+      include: {
+        organization: true,
+      },
     });
     return data;
   }

@@ -11,10 +11,17 @@ export class OrganizationsService {
     return await this.prisma.organization.create({ data });
   }
 
-  async findAll(page = 1, pageSize = 20) {
+  async findAll(
+    args: Partial<{
+      page: number;
+      pageSize: number;
+    }>,
+  ) {
+    const { page = 1, pageSize = 20, ...where } = args;
     const data = await this.prisma.organization.paginate({
       limit: pageSize,
       page,
+      where,
     });
     return data;
   }

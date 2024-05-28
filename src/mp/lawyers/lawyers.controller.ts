@@ -1,11 +1,14 @@
+import { QFYApiResponse } from '@/lib/qfy-api-response';
 import {
   Body,
   Controller,
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { CreateLawyerDto } from './dto/create-lawyer.dto';
 import { UpdateLawyerDto } from './dto/update-lawyer.dto';
@@ -21,8 +24,27 @@ export class LawyersController {
   }
 
   @Get()
-  findAll() {
-    return this.lawyersService.findAll();
+  async findAll(@Query('organizationId', ParseIntPipe) organizationId: number) {
+    const data = await this.lawyersService.findAll(organizationId);
+    return QFYApiResponse.create({
+      code: 200,
+      data: data,
+      desc: '',
+    });
+  }
+
+  @Get('/featured')
+  async featured(
+    @Query('organizationId', ParseIntPipe) organizationId: number,
+  ) {
+    const data = await this.lawyersService.findAll(organizationId, {
+      featured: 1,
+    });
+    return QFYApiResponse.create({
+      code: 200,
+      data: data,
+      desc: '',
+    });
   }
 
   @Get(':id')

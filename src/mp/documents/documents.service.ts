@@ -11,24 +11,12 @@ export class DocumentsService {
     return 'This action adds a new document';
   }
 
-  async findAll(
-    args: Partial<{
-      organizationId: number;
-      page: number;
-      pageSize: number;
-    }>,
-  ) {
-    const { page = 1, pageSize = 20, ...where } = args;
-    const data = await this.prisma.document.paginate({
-      limit: pageSize,
-      page,
-      where,
-    });
-    return data;
+  async findAll(organizationId: number) {
+    return await this.prisma.document.findMany({ where: { organizationId } });
   }
 
-  async findOne(id: number) {
-    return await this.prisma.document.findFirst({ where: { id } });
+  findOne(id: number) {
+    return `This action returns a #${id} document`;
   }
 
   update(id: number, updateDocumentDto: UpdateDocumentDto) {

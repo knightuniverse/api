@@ -33,7 +33,7 @@ export class OrganizationsController {
     @Query('page', ParseIntPipe) page: number,
     @Query('pageSize', ParseIntPipe) pageSize: number,
   ) {
-    const data = await this.organizationsService.findAll(page, pageSize);
+    const data = await this.organizationsService.findAll({ page, pageSize });
     return QFYApiResponse.create({
       code: 200,
       data: data,

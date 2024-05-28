@@ -33,7 +33,7 @@ export class LawyersController {
     @Query('page', ParseIntPipe) page: number,
     @Query('pageSize', ParseIntPipe) pageSize: number,
   ) {
-    const data = await this.lawyersService.findAll(page, pageSize);
+    const data = await this.lawyersService.findAll({ page, pageSize });
     return QFYApiResponse.create({
       code: 200,
       data: data,

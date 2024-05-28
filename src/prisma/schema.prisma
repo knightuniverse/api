@@ -87,10 +87,13 @@ model Organization {
 model Lawyer {
   bio            String
   createdAt      DateTime      @default(now())
+  featured       Int           @default(0) // 0: 不推荐；1：推荐
   id             Int           @id @default(autoincrement())
   name           String
   organization   Organization? @relation(fields: [organizationId], references: [id])
   organizationId Int?
+  portrait       String        @default("")
+  rate           Int           @default(0)
   seniority      Int           @default(0) // 工龄
   updatedAt      DateTime      @default(now())
 
@@ -99,12 +102,14 @@ model Lawyer {
 
 model Document {
   createdAt      DateTime           @default(now())
+  downloadCount  Int                @default(0)
   downloads      DocumentDownload[]
   href           String // 文档的云存储地址
   id             Int                @id @default(autoincrement())
   organization   Organization?      @relation(fields: [organizationId], references: [id])
   organizationId Int?
-  removedAt      DateTime
+  removedAt      DateTime?
+  thumbnail      String             @default("")
   title          String
   updatedAt      DateTime           @default(now())
 
