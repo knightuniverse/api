@@ -1,11 +1,14 @@
+import { QFYApiResponse } from '@/lib/qfy-api-response';
 import {
   Body,
   Controller,
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { DocumentDownloadsService } from './document-downloads.service';
 import { CreateDocumentDownloadDto } from './dto/create-document-download.dto';
@@ -23,8 +26,24 @@ export class DocumentDownloadsController {
   }
 
   @Get()
-  findAll() {
-    return this.documentDownloadsService.findAll();
+  async findAll(
+    @Query('documentId', ParseIntPipe) documentId: number,
+    @Query('page', ParseIntPipe) page: number,
+    @Query('pageSize', ParseIntPipe) pageSize: number,
+  ) {
+    const args = {
+      page,
+      pageSize,
+    } as Record<string, any>;
+    if (documentId > 0) {
+      args.documentId = documentId;
+    }
+    const data = await this.documentDownloadsService.findAll(args);
+    return QFYApiResponse.create({
+      code: 200,
+      data: data,
+      desc: '',
+    });
   }
 
   @Get(':id')
