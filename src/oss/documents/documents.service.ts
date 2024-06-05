@@ -7,8 +7,11 @@ import { UpdateDocumentDto } from './dto/update-document.dto';
 export class DocumentsService {
   constructor(@Inject(PRISMA_INJECTION_TOKEN) private prisma: PrismaService) {}
 
-  create(createDocumentDto: CreateDocumentDto) {
-    return 'This action adds a new document';
+  async create(dto: CreateDocumentDto) {
+    const data = await this.prisma.document.create({
+      data: dto,
+    });
+    return data;
   }
 
   async findAll(

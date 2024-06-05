@@ -20,8 +20,13 @@ export class DocumentsController {
   constructor(private readonly documentsService: DocumentsService) {}
 
   @Post()
-  create(@Body() createDocumentDto: CreateDocumentDto) {
-    return this.documentsService.create(createDocumentDto);
+  async create(@Body() dto: CreateDocumentDto) {
+    const data = await this.documentsService.create(dto);
+    return QFYApiResponse.create({
+      code: 200,
+      data: data,
+      desc: '',
+    });
   }
 
   @Get()
