@@ -5,41 +5,42 @@ services:
     image: 'mcr.microsoft.com/devcontainers/javascript-node:20-bullseye'
     command: tail -f /dev/null
     networks:
-      - qfy
+      - qfy-dev
     ports:
-      - '8083:80'
+      - 8083:80
     volumes:
       - ../..:/workspaces:cached
-  api-mysql:
+
+  mysql:
     image: 'mysql:8.4'
     environment:
       MYSQL_ROOT_PASSWORD: dh1NVaJQuhpks1tc74GYdHwei6qaWY5m
-      MYSQL_DATABASE: legal-consultation-dev
+      MYSQL_DATABASE: lc_dev
       MYSQL_USER: johndoe
-      MYSQL_PASSWORD: 2Dp1pFT9ehMaoefpPLq9VuXqJg7Fc8g8
+      MYSQL_PASSWORD: vdfmn7pw2u
     networks:
-      - qfy
+      - qfy-dev
     ports:
-      - '3306:3306'
+      - 3307:3306
     restart: unless-stopped
     volumes:
-      - mysql-data:/var/lib/mysql
-  api-redis:
+      - qfy-api-mysql-data-dev:/var/lib/mysql
+
+  redis:
     image: 'redis:alpine'
     networks:
-      - qfy
+      - qfy-dev
     ports:
-      - '6379:6379'
+      - 6379:6379
     restart: unless-stopped
     volumes:
-      - redis-data:/data
+      - qfy-api-redis-data-dev:/data
 
 volumes:
-  mysql-data:
-  redis-data:
+  qfy-api-mysql-data-dev:
+  qfy-api-redis-data-dev:
 
 networks:
   # The presence of these objects is sufficient to define them
-  qfy:
-    external: true
-    name: qfy
+  qfy-dev:
+    name: qfy-dev
